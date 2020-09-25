@@ -1,26 +1,19 @@
-"""
-Module that contains the command line app.
-
-Why does this file exist, and why not put this in __main__?
-
-  You might be tempted to import things from __main__ later, but that will cause
-  problems: the code will get executed twice:
-
-  - When you run `python -mxapiparser` python will execute
-    ``__main__.py`` as a script. That means there won't be any
-    ``xapiparser.__main__`` in ``sys.modules``.
-  - When you import __main__ it will get executed again (as a module) because
-    there's no ``xapiparser.__main__`` in ``sys.modules``.
-
-  Also see (1) from http://click.pocoo.org/5/setuptools/#setuptools-integration
-"""
 import argparse
+import sys
 
-parser = argparse.ArgumentParser(description='Command description.')
-parser.add_argument('names', metavar='NAME', nargs=argparse.ZERO_OR_MORE,
-                    help="A name of something.")
+from xapiparser import __version__
+from xapiparser import parse
+
+parser = argparse.ArgumentParser(description='xAPI ssh expression parser.')
+parser.add_argument('expression', metavar='expression', nargs=argparse.ZERO_OR_MORE,
+                    help="xAPI ssh expression")
+parser.add_argument('--version', metavar='version', action="store_true",
+                    help="version")
 
 
 def main(args=None):
     args = parser.parse_args(args=args)
-    print(args.names)
+    if args.version:
+        print(f"version: {__version__}")
+        sys.exit()
+    print(parse(args.expression))
