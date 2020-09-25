@@ -71,7 +71,9 @@ To use the project:
 .. code-block:: python
 
     import xapiparser
-    xapiparser.longest()
+
+    xapi = 'xConfiguration Conference Encryption Mode'
+    xapiparser.parse(xapi)
 
 
 Development
