@@ -2,11 +2,16 @@ import lxml.etree as etree
 import pytest
 
 from xapiparser import parse
+from xapiparser.cli import main
 
 
 @pytest.fixture
 def strip_whitespace():
     return etree.XMLParser(remove_blank_text=True)
+
+
+def test_main(strip_whitespace):
+    main(['xCommand Audio Volume Set Level: 50'])
 
 
 def test_basic(strip_whitespace):
