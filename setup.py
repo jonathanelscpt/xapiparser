@@ -25,7 +25,7 @@ def read(*names, **kwargs):
 
 setup(
     name='xapiparser',
-    version='0.0.6',
+    version='0.0.7',
     license='MIT',
     description='XAPI ssh command parser to convert cli commands to xml for use in the Cisco XAPI REST API',
     long_description='%s\n%s' % (
