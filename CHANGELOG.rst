@@ -2,6 +2,12 @@
 Changelog
 =========
 
+0.0.6 (2020-09-26)
+------------------
+
+* fixed basic case defect and added unit testing
+
+
 0.0.5 (2020-09-26)
 ------------------
 
