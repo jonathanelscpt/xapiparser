@@ -14,6 +14,7 @@ parser.add_argument('--version', action='version',
 
 def main(args=None):
     args = parser.parse_args(args=args)
+    print(type(args.expression))
     if not args.expression:
         parser.error("Error.  No xAPI ssh expression supplied.")
     print(etree.tostring(parse(args.expression), pretty_print=True, encoding='unicode'))

@@ -68,13 +68,18 @@ class _XApiParser:
                 child.text = expr[1]
                 return _XApiParser.parse(_rejoin(expr[2:]), root=root, current=child)
 
+            # case: final element
+            elif len(expr) == 1:
+                child = SubElement(current, expr[0])
+                return _XApiParser.parse(_rejoin(expr[1:]), root=root, current=child)
+
             # case: index as next element and subsequent values are provided
-            elif expr[1].isdigit() and expr[2]:
+            elif expr[1].isdigit() and len(expr) > 2:
                 child = SubElement(current, expr[0])
                 child.set("item", expr[1])
                 return _XApiParser.parse(_rejoin(expr[2:]), root=root, current=child)
 
-            # case: basic child element
+            # case: child element exists
             else:
                 child = SubElement(current, expr[0])
                 return _XApiParser.parse(_rejoin(expr[1:]), root=root, current=child)
