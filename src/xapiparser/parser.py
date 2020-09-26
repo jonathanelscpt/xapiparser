@@ -7,8 +7,9 @@ from lxml.etree import SubElement
 from xapiparser.exception import ParseError
 from xapiparser.exception import UnsupportedError
 
-COMMANDS = ('xCommand', 'xStatus', 'xConfiguration', 'xFeedback', 'xPreferences', 'xEvent', 'xGetxml')
-UNSUPPORTED = ('Systemtools', 'Log')
+COMMANDS = ('xCommand', 'xStatus', 'xConfiguration')
+UNSUPPORTED = ('xEvent', 'xGetxml')
+SSH_ONLY = ('Systemtools', 'Log', 'xPreferences', 'xFeedback', 'Echo')
 INDEXED_TAG = r"\[(\d+)\]$"
 
 
@@ -29,8 +30,10 @@ class _XApiParser:
 
             # base case
             if root is None:
-                if expr[0].lower() in [u.lower() for u in UNSUPPORTED]:
+                if expr[0].lower() in [u.lower() for u in SSH_ONLY]:
                     raise UnsupportedError('CLI expression is not supported in REST API')
+                if expr[0].lower() in [u.lower() for u in UNSUPPORTED]:
+                    raise UnsupportedError('Expression is not currently supported by xapiparser')
                 if expr[0].lower() not in [c.lower() for c in COMMANDS]:
                     raise ParseError(f"Unknown command: {expr[0]}")
                 root = Element(expr[0][1:])
