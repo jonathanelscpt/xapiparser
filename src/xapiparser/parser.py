@@ -8,7 +8,7 @@ from xapiparser.exception import ParseError
 from xapiparser.exception import UnsupportedError
 
 COMMANDS = ('xCommand', 'xStatus', 'xConfiguration')
-UNSUPPORTED = ('xEvent', 'xGetxml')
+UNSUPPORTED = ('xGetxml', 'xEvent')
 SSH_ONLY = ('Systemtools', 'Log', 'xPreferences', 'xFeedback', 'Echo')
 INDEXED_TAG = r"\[(\d+)\]$"
 
