@@ -48,7 +48,7 @@ deploy:
       secure: "R6/aAbLVro9AlQ6z1roGSosY4VykZYw0Qf7fyVz1NJ1X/xdBiWLDorSEljcy0HQARNTuKOC93FLXXWUz3tC7eCv43qpsdNNL+hUWUe4XQmaNxRxTtlofCcjD/ypYF9t95dsY/i9YQvbFpYA3zrcqUiJGGrJH/Wms31giOfz4i01rSS6aGEf2wjHEqnDhtiHlLIs96PacVqggPFFyQEqaUX5btJX1Nb/qFSE5ZBIGZyuhZJo2jSf8XuQqUAwI8PeUPS4CVrgN2FuAUfhyYcLF7b0cADxCqFtW7ItGW+gC8ryBbGFci0y7PA1wDaTfY42a7AOo8N2M+ofjIbIhzMyRUPuuhSqQ8qQte2MhNuKpYkOWh1m58fkND7J+7u1TK4VMLDq2GcG9yxkTymJuurSOMo0hCp2k+hhH++epRwMuHDyY065ibIhAxgtU8DGUYLGo2Re6zzq6SLfb3QpZUridGYHxlkqLj/oNW8Hl/mdHphbYtVgS2apPjwqSVnLigUq9uSkc+jmVexY7oeLzDoByWPqteu9V+oQAcKt7dowEGRsWXmxAkSdPZKEUskIkSlTmO5+y5wYE9Bx7cqMJ6Rz1qNPzP+pTMdjBl1uyxZmhRZI1fnmJ9wxY2xgNQsb5KEjQCKtUoWXBcFtVgxSy43E0IqOHvj/EijP0jFMPeakW1Bw="
   on:
       tags: true
-      python: 3.8
+      python: 3.6
   distributions: "sdist bdist_wheel"
   skip_existing: true
 notifications:
