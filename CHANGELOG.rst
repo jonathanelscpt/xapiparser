@@ -2,6 +2,11 @@
 Changelog
 =========
 
+0.0.8 (2020-09-26)
+------------------
+
+* build and deployment automation with travis.
+
 0.0.7 (2020-09-26)
 ------------------
 
@@ -11,7 +16,6 @@ Changelog
 ------------------
 
 * fixed basic case defect and added unit testing
-
 
 0.0.5 (2020-09-26)
 ------------------
