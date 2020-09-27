@@ -1,5 +1,7 @@
 import re
 import shlex
+from typing import List
+from typing import Union
 
 from lxml.etree import Element
 from lxml.etree import SubElement
@@ -13,18 +15,18 @@ SSH_ONLY = ('Systemtools', 'Log', 'xPreferences', 'xFeedback', 'Echo')
 INDEXED_TAG = r"\[(\d+)\]$"
 
 
-def _rejoin(expr):
+def _rejoin(expr: List) -> str:
     return " ".join(expr)
 
 
-def parse(expression):
+def parse(expression: str) -> Element:
     return _XApiParser.parse(expression)
 
 
 class _XApiParser:
 
     @staticmethod
-    def parse(expression, root=None, current=None):
+    def parse(expression: str, root: Element = None, current: Union[Element, SubElement] = None) -> Element:
         try:
             expr = shlex.split(expression)
 
