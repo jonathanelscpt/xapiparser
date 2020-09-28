@@ -2,4 +2,4 @@
 Authors
 =======
 
-* Jonathan Els - https://afterthenumber.com/
+* Jonathan Els - jonathanelscpt@gmail.com
