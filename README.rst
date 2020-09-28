@@ -14,9 +14,9 @@ Overview
       - | |version| |wheel| |supported-versions| |supported-implementations|
         | |commits-since|
 
-.. |travis| image:: https://api.travis-ci.org/jonathanelscpt/xapiparser.svg?branch=master
+.. |travis| image:: https://api.travis-ci.com/jonathanelscpt/xapiparser.svg?branch=master
     :alt: Travis-CI Build Status
-    :target: https://travis-ci.org/jonathanelscpt/xapiparser
+    :target: https://travis-ci.com/jonathanelscpt/xapiparser
 
 .. |codecov| image:: https://codecov.io/gh/jonathanelscpt/xapiparser/branch/master/graphs/badge.svg?branch=master
     :alt: Coverage Status
