@@ -2,6 +2,14 @@
 Changelog
 =========
 
+0.0.10 (2020-09-28)
+-------------------
+
+* fixed exception raising behaviour
+* added unit tests
+* renamed references to refer to 'cmd'
+* updated travis-ci settings to use .com instead of .org site
+
 0.0.9 (2020-09-28)
 ------------------
 
