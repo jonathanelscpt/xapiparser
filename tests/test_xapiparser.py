@@ -3,8 +3,8 @@ import pytest
 
 from xapiparser import parse
 from xapiparser.cli import main
+from xapiparser.exception import ParseError
 from xapiparser.exception import UnsupportedError
-
 
 @pytest.fixture
 def strip_whitespace():
@@ -106,11 +106,16 @@ def test_attribute_suffixes(strip_whitespace):
     assert etree.tostring(expected) == etree.tostring(parsed)
 
 
-def test_not_implemented():
+def test_not_implemented_error():
     with pytest.raises(NotImplementedError):
         parse('xgetxml /Configuration/Video/Layout/Scaling | resultId="mytag _ 2"')
 
 
-def test_unsupported_ssh_only_expression():
+def test_unsupported__error_ssh_only_expression():
     with pytest.raises(UnsupportedError):
         parse("systemtools license list")
+
+
+def test_parse_error():
+    with pytest.raises(ParseError):
+        parse("not a legitimate expression")
