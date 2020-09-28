@@ -38,9 +38,9 @@ Overview
     :alt: Supported implementations
     :target: https://pypi.org/project/xapiparser
 
-.. |commits-since| image:: https://img.shields.io/github/commits-since/jonathanelscpt/xapiparser/v0.0.13.svg
+.. |commits-since| image:: https://img.shields.io/github/commits-since/jonathanelscpt/xapiparser/v0.0.14.svg
     :alt: Commits since latest release
-    :target: https://github.com/jonathanelscpt/xapiparser/compare/v0.0.13...master
+    :target: https://github.com/jonathanelscpt/xapiparser/compare/v0.0.14...master
 
 
 
