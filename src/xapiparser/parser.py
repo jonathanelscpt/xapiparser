@@ -35,7 +35,7 @@ class _XApiParser:
                 if expr[0].lower() in [u.lower() for u in SSH_ONLY]:
                     raise UnsupportedError('CLI expression is not supported in REST API')
                 if expr[0].lower() in [u.lower() for u in UNSUPPORTED]:
-                    raise UnsupportedError('Expression is not currently supported by xapiparser')
+                    raise NotImplementedError('Expression is not currently supported by xapiparser')
                 if expr[0].lower() not in [c.lower() for c in COMMANDS]:
                     raise ParseError(f"Unknown command: {expr[0]}")
                 root = Element(expr[0][1:])
@@ -86,5 +86,9 @@ class _XApiParser:
                 child = SubElement(current, expr[0])
                 return _XApiParser.parse(_rejoin(expr[1:]), root=root, current=child)
 
+        except NotImplementedError as nie:
+            raise nie
+        except UnsupportedError as ue:
+            raise ue
         except Exception:
             raise ParseError("Parsing failed")

@@ -3,6 +3,7 @@ import pytest
 
 from xapiparser import parse
 from xapiparser.cli import main
+from xapiparser.exception import UnsupportedError
 
 
 @pytest.fixture
@@ -103,3 +104,13 @@ def test_attribute_suffixes(strip_whitespace):
     expected = etree.XML(xapi, parser=strip_whitespace)
     parsed = parse(expression)
     assert etree.tostring(expected) == etree.tostring(parsed)
+
+
+def test_not_implemented():
+    with pytest.raises(NotImplementedError):
+        parse('xgetxml /Configuration/Video/Layout/Scaling | resultId="mytag _ 2"')
+
+
+def test_unsupported_ssh_only_expression():
+    with pytest.raises(UnsupportedError):
+        parse("systemtools license list")
