@@ -3,53 +3,53 @@ dist: xenial
 cache: false
 env:
   global:
-    - LD_PRELOAD=/lib/x86_64-linux-gnu/libSegFault.so
-    - SEGFAULT_SIGNALS=all
-    - LANG=en_US.UTF-8
+  - LD_PRELOAD=/lib/x86_64-linux-gnu/libSegFault.so
+  - SEGFAULT_SIGNALS=all
+  - LANG=en_US.UTF-8
 matrix:
   include:
-    - env:
-        - TOXENV=check
-      python: '3.8'
-    - env:
-        - TOXENV=py36,codecov
-      python: '3.6'
-    - env:
-        - TOXENV=py37,codecov
-      python: '3.7'
-    - env:
-        - TOXENV=py38,codecov
-      python: '3.8'
-    - env:
-        - TOXENV=pypy3,codecov
-        - TOXPYTHON=pypy3
-      python: 'pypy3'
+  - env:
+    - TOXENV=check
+    python: '3.8'
+  - env:
+    - TOXENV=py36,codecov
+    python: '3.6'
+  - env:
+    - TOXENV=py37,codecov
+    python: '3.7'
+  - env:
+    - TOXENV=py38,codecov
+    python: '3.8'
+  - env:
+    - TOXENV=pypy3,codecov
+    - TOXPYTHON=pypy3
+    python: pypy3
 before_install:
-  - python --version
-  - uname -a
-  - lsb_release -a || true
+- python --version
+- uname -a
+- lsb_release -a || true
 install:
-  - python -mpip install --progress-bar=off tox -rci/requirements.txt
-  - virtualenv --version
-  - easy_install --version
-  - pip --version
-  - tox --version
+- python -mpip install --progress-bar=off tox -rci/requirements.txt
+- virtualenv --version
+- easy_install --version
+- pip --version
+- tox --version
 script:
-  - tox -v
+- tox -v
 after_success:
-    - bash <(curl -s https://codecov.io/bash)
+- bash <(curl -s https://codecov.io/bash)
 after_failure:
-  - cat .tox/log/*
-  - cat .tox/*/log/*
+- cat .tox/log/*
+- cat .tox/*/log/*
 deploy:
   provider: pypi
-  user: "__token__"
+  user: __token__
   password:
-      secure: "fn3GTrMpVAydw/XZfcRYLmQUAAYyOgZHGhR8q0zNt1vEbuH1Yi9WqfWuUZdDA5+WwvvKfW5Lcxxn0sSkkaYtGGXMKlu5vmWl4ujrD7FFzP+W6L7yiCPqUZppy2uCrigwZgt1ODbzGHXexi5PYshe2rnq19cloG7k4npOAgs2bj3cPaQsPLpoPl2Xd7hhSDVVPgKRU+qQ/Y3jMoLVfis8eatdMJiAb1cBdzPuY2mG9WST1dKWYXKtn7Kg6s89Cehy3mXcOC8ILw5yYTOifDPkgT7B4M5gYFXjkQfW+cva31z2iEo1qUvINzKDPgmViVgaeFDCJpwGjjOg4DZgrWA80N6tsjVvPZBxf1sAmuYmo2TnQ54OSrocz9DhQV/h4jHqyyY16FdljxtumIfJJqZgAclZdAFdrqybnAsqTP8q5ravJXlyk9f6Xs7cx1s5i/hz/B81gYG/MbwN/qpLo1r450LYgy3GnjsCPXmTdDsypDbPYknMG9r/QoSrAiKdHmm6Ayeblwws8+sVfX8grpZQOo6c3sP8g6vHkny3GJVfaitEwz7/welLQm1AH++fnEHDST2f7XZRn2C7I84FkaeW3gyhcxyX2YzVgV7THIRd8YwNwMNDAD+hUFCEaPY+eDLPYqMiz1TdAW9r7TZUJqRP/hKMoigzgP+j/tFj34sn3mU="
+    secure: P3wOVFucmbjrXRrNVdssUNphm4B/biIpSfo766HkUb18iiEju2AutjGVyr4KPUFroIgnochZp0I/SjoNEn97agtbKDYHf8qKc9gE5L1u6KhmKlAbx3cBNoyal/lzD7cPEQVPE7n3hlAhp6x5ipXSmUmHEdoAKjOdg+lUzOqceJ4mVWvYHsCvU/Kckgshlqh4vSXPoy4cUho1eg3lq3Y8fhWBG9DWFnUnoWF29aqiAL9ZNLu1VIYVu4wY4/TRMZC+Lz5hhWN9N3cmfBSZ2JoLFhNsHGEwYBCXSruBHhpnorBSIz3EUKnlYP4RtBt6pmMQIlkgxkzGuvnk6ZBr68giucL4B1Du+dH0BHTUl7cqAQ4RIs6xsMrQ8xhxo+WYdBV0m3exz9iqdeEpuqjCNpdeCRfWLD8sfxPNhMxiaEHpx4X9HrY094OBbmDxCRJp3adtAg1u+8r0rT+HcmA/CnZR6XJe2Y4ENpv3EyrO9J0US5T8T+0qDAcDJ9ieGcFvqGldAM8U0tEo4ucbMrpzb6Zfcd6kMJ/6UzqRZLBEtixu+8QIGCwqMihLJk1HmkQL3VrNcfvzjwjxYaFI8wq/iKAJe0iY53mEEXc4Jf2SaVg5KAoB5fMLGAngMrDnCiGkSLjxo4SpnoVVeMp4fQhLrGHcZEEsCZZVh3IGdgB3rnReeBM=
   on:
-      tags: true
-      python: 3.6
-  distributions: "sdist bdist_wheel"
+    tags: true
+    python: 3.6
+  distributions: sdist bdist_wheel
   skip_existing: true
 notifications:
   email:
