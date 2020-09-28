@@ -2,6 +2,11 @@
 Changelog
 =========
 
+0.0.14 (2020-09-28)
+-------------------
+
+* fixed build token encryption issues with travis-ci.com
+
 0.0.11 (2020-09-28)
 -------------------
 
