@@ -19,29 +19,29 @@ def _rejoin(expr: List) -> str:
     return " ".join(expr)
 
 
-def parse(expression: str) -> Element:
-    return _XApiParser.parse(expression)
+def parse(cmd: str) -> Element:
+    return _XApiParser.parse(cmd)
 
 
 class _XApiParser:
 
     @staticmethod
-    def parse(expression: str, root: Element = None, current: Union[Element, SubElement] = None) -> Element:
+    def parse(cmd: str, root: Element = None, current: Union[Element, SubElement] = None) -> Element:
         try:
-            expr = shlex.split(expression)
+            expr = shlex.split(cmd)
 
             # base case
             if root is None:
                 if expr[0].lower() in [u.lower() for u in SSH_ONLY]:
-                    raise UnsupportedError('CLI expression is not supported in REST API')
+                    raise UnsupportedError('CLI cmd is not supported in REST API')
                 if expr[0].lower() in [u.lower() for u in UNSUPPORTED]:
-                    raise NotImplementedError('Expression is not currently supported by xapiparser')
+                    raise NotImplementedError('cmd is not currently supported by xapiparser lib')
                 if expr[0].lower() not in [c.lower() for c in COMMANDS]:
                     raise ParseError(f"Unknown command: {expr[0]}")
                 root = Element(expr[0][1:])
                 return _XApiParser.parse(_rejoin(expr[1:]), root=root, current=root)
 
-            # exit case: end of expression reached
+            # exit case: end of cmd reached
             elif not expr:
                 return root
 

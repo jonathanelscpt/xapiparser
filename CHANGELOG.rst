@@ -31,7 +31,7 @@ Changelog
 0.0.4 (2020-09-26)
 ------------------
 
-* updated supported, ssh-only and currently supported ssh expressions
+* updated supported, ssh-only and currently supported ssh cmds
 
 0.0.3 (2020-09-25)
 ------------------
