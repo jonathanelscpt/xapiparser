@@ -6,7 +6,7 @@ from xapiparser import __version__
 from xapiparser import parse
 
 parser = argparse.ArgumentParser(description='xAPI ssh command parser.')
-parser.add_argument('command', metavar='command', nargs=1,
+parser.add_argument('command', metavar='cmd', nargs=1,
                     help="xAPI ssh command")
 parser.add_argument('--version', action='version',
                     version='%(prog)s v{version}'.format(version=__version__))
