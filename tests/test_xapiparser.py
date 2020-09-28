@@ -6,6 +6,7 @@ from xapiparser.cli import main
 from xapiparser.exception import ParseError
 from xapiparser.exception import UnsupportedError
 
+
 @pytest.fixture
 def strip_whitespace():
     return etree.XMLParser(remove_blank_text=True)
