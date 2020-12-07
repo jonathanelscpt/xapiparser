@@ -15,10 +15,6 @@ SSH_ONLY = ('Systemtools', 'Log', 'xPreferences', 'xFeedback', 'Echo')
 INDEXED_TAG = r"\[(\d+)\]$"
 
 
-def _rejoin(expr: List) -> str:
-    return " ".join(expr)
-
-
 def parse(cmd: str) -> Element:
     expr = shlex.split(cmd)
     return _XApiParser.parse(expr)
