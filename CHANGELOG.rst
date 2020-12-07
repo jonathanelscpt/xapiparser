@@ -2,6 +2,11 @@
 Changelog
 =========
 
+0.0.15 (2020-12-07)
+-------------------
+
+* fixed bug with quoted text for attribute not working due to unnecessary string joining stripping quotes
+
 0.0.14 (2020-09-28)
 -------------------
 
