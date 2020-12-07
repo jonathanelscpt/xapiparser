@@ -107,6 +107,22 @@ def test_attribute_suffixes(strip_whitespace):
     assert etree.tostring(expected) == etree.tostring(parsed)
 
 
+def test_whitespace_attribute(strip_whitespace):
+    cmd = "xConfiguration NetworkServices SNMP SystemContact: '43.51, 1.81'"
+    xapi = """
+    <Configuration>
+        <NetworkServices>
+            <SNMP>
+                <SystemContact>43.51, 1.81</SystemContact>
+            </SNMP>
+        </NetworkServices>
+    </Configuration>
+    """
+    expected = etree.XML(xapi, parser=strip_whitespace)
+    parsed = parse(cmd)
+    assert etree.tostring(expected) == etree.tostring(parsed)
+
+
 def test_not_implemented_error():
     with pytest.raises(NotImplementedError):
         parse('xgetxml /Configuration/Video/Layout/Scaling | resultId="mytag _ 2"')

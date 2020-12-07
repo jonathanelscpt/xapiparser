@@ -20,16 +20,15 @@ def _rejoin(expr: List) -> str:
 
 
 def parse(cmd: str) -> Element:
-    return _XApiParser.parse(cmd)
+    expr = shlex.split(cmd)
+    return _XApiParser.parse(expr)
 
 
 class _XApiParser:
 
     @staticmethod
-    def parse(cmd: str, root: Element = None, current: Union[Element, SubElement] = None) -> Element:
+    def parse(expr: List, root: Element = None, current: Union[Element, SubElement] = None) -> Element:
         try:
-            expr = shlex.split(cmd)
-
             # base case
             if root is None:
                 if expr[0].lower() in [u.lower() for u in SSH_ONLY]:
@@ -39,7 +38,7 @@ class _XApiParser:
                 if expr[0].lower() not in [c.lower() for c in COMMANDS]:
                     raise ParseError(f"Unknown command: {expr[0]}")
                 root = Element(expr[0][1:])
-                return _XApiParser.parse(_rejoin(expr[1:]), root=root, current=root)
+                return _XApiParser.parse(expr[1:], root=root, current=root)
 
             # exit case: end of cmd reached
             elif not expr:
@@ -54,12 +53,12 @@ class _XApiParser:
                     val = re.search(INDEXED_TAG, expr[0][:-1]).group(1)
                     child.set("item", val)
                     child.text = expr[1]
-                    return _XApiParser.parse(_rejoin(expr[2:]), root=root, current=current)
+                    return _XApiParser.parse(expr[2:], root=root, current=current)
                 # only trailing colon
                 else:
                     child = SubElement(current, expr[0][:-1])
                     child.text = expr[1]
-                    return _XApiParser.parse(_rejoin(expr[2:]), root=root, current=current)
+                    return _XApiParser.parse(expr[2:], root=root, current=current)
 
             # case: [indexed] tag with value
             elif re.search(INDEXED_TAG, expr[0]):
@@ -68,23 +67,23 @@ class _XApiParser:
                 val = re.search(INDEXED_TAG, expr[0]).group(1)
                 child.set("item", val)
                 child.text = expr[1]
-                return _XApiParser.parse(_rejoin(expr[2:]), root=root, current=child)
+                return _XApiParser.parse(expr[2:], root=root, current=child)
 
             # case: final element
             elif len(expr) == 1:
                 child = SubElement(current, expr[0])
-                return _XApiParser.parse(_rejoin(expr[1:]), root=root, current=child)
+                return _XApiParser.parse(expr[1:], root=root, current=child)
 
             # case: index as next element and subsequent values are provided
             elif expr[1].isdigit() and len(expr) > 2:
                 child = SubElement(current, expr[0])
                 child.set("item", expr[1])
-                return _XApiParser.parse(_rejoin(expr[2:]), root=root, current=child)
+                return _XApiParser.parse(expr[2:], root=root, current=child)
 
             # case: child element exists
             else:
                 child = SubElement(current, expr[0])
-                return _XApiParser.parse(_rejoin(expr[1:]), root=root, current=child)
+                return _XApiParser.parse(expr[1:], root=root, current=child)
 
         except NotImplementedError as nie:
             raise nie
