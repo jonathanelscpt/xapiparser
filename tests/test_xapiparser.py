@@ -7,11 +7,6 @@ from xapiparser.exception import ParseError
 from xapiparser.exception import UnsupportedError
 
 
-@pytest.fixture
-def strip_whitespace():
-    return etree.XMLParser(remove_blank_text=True)
-
-
 def test_main(strip_whitespace):
     main(['xCommand Audio Volume Set Level: 50'])
 
@@ -123,6 +118,23 @@ def test_whitespace_attribute(strip_whitespace):
     assert etree.tostring(expected) == etree.tostring(parsed)
 
 
+def test_empty_attribute(strip_whitespace):
+    cmd = 'xConfiguration Phonebook Server 1 URL: ""'
+    xapi = """
+            <Configuration>
+                <Phonebook>
+                    <Server item="1">
+                        <URL></URL>
+                    </Server>
+                </Phonebook>
+            </Configuration>
+            """
+    expected = etree.XML(xapi, parser=strip_whitespace)
+    parsed = parse(cmd)
+    # do not collapse empty tags to prevent false negative
+    assert etree.tostring(expected, method="c14n") == etree.tostring(parsed, method="c14n")
+
+
 def test_not_implemented_error():
     with pytest.raises(NotImplementedError):
         parse('xgetxml /Configuration/Video/Layout/Scaling | resultId="mytag _ 2"')
@@ -136,3 +148,8 @@ def test_unsupported__error_ssh_only_cmd():
 def test_parse_error():
     with pytest.raises(ParseError):
         parse("not valid xapi ssh cmd")
+
+def test_null_attribute(strip_whitespace):
+    cmd = 'xConfiguration Phonebook Server 1 URL:'
+    with pytest.raises(ParseError):
+        parse(cmd)
