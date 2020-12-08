@@ -149,6 +149,7 @@ def test_parse_error():
     with pytest.raises(ParseError):
         parse("not valid xapi ssh cmd")
 
+
 def test_null_attribute(strip_whitespace):
     cmd = 'xConfiguration Phonebook Server 1 URL:'
     with pytest.raises(ParseError):
